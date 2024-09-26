@@ -1,45 +1,13 @@
-<?php
-$post_data = $_POST;
-
-if (isset($post_data['email']) &&  isset($post_data['password'])) {
-
-    if (!filter_var($post_data['email'], FILTER_VALIDATE_EMAIL)) {
-        $message_error = 'Email ou mot de passe incorrect';
-        // return;
-    }
-
-    $email = $post_data['email'];
-    $password = $post_data['password'];
-
-    foreach ($users as $user) {
-        if ($user['email'] === $email && $user['password'] === $password) {
-            $user_logged = $user;
-            $message_success = 'Vous êtes bien connecté';
-            break;
-        } else {
-
-            $message_error = 'Email ou mot de passe incorrect';
-            // return;
-        }
-    }
-
-    if (!isset($user_logged)) {
-        $message_error = 'Les information ne permmettent pas de vous connecter';
-        // return;
-    }
-}
-
-?>
 
 
-<?php if (!isset($user_logged)) : ?>
+<?php if (!isset($_SESSION['user_logged'])) : ?>
 
-    <?php if (isset($message_error)) : ?>
+    <?php if (isset($_SESSION['$message_error'])) : ?>
         <div class="alert alert-danger" role="alert">
-            <p><?php echo $message_error ?></p>
+            <p><?php echo $_SESSION['$message_error'] ?></p>
     <?php endif; ?>
 
-    <form action="index.php" method="POST">
+    <form action="submit_login.php" method="POST">
         <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" class="form-control" id="email" name='email' aria-describedby="emailHelp" placeholder="Enter email">
@@ -56,6 +24,7 @@ if (isset($post_data['email']) &&  isset($post_data['password'])) {
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
 
-<?php elseif ($user_logged) : ?>
-    <h1 style='text-align:center;'>Bienvenue <?php echo htmlspecialchars($user_logged['full_name']) ?></h1>
+<?php elseif ($_SESSION['user_logged']) : ?>
+   
+    <h1 style='text-align:center;'>Bienvenue <?php echo $_SESSION['user_logged']['full_name'] ?></h1>
 <?php endif; ?>

@@ -13,6 +13,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="contact.php">Contact</a>
                 </li>
+
+                <?php if (isset($_SESSION['user_logged'])) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recipes_create.php">Ajoutez une recette !</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">LogOut</a>
+                    </li>
+                <?php endif ?>
             </ul>
         </div>
     </div>

@@ -1,4 +1,6 @@
 <?php
+require_once('dataBaseConnect.php');
+
 function displayAuthor(string $authorEmail, array $users): string
 {
     foreach ($users as $user) {
@@ -30,4 +32,13 @@ function getRecipes(array $recipes): array
         }
     }
     return $valid_recipes;
+}
+
+
+
+
+function redirectToUrl(string $url): never
+{
+    header("Location: {$url}");
+    exit();
 }
